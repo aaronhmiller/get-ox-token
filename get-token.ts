@@ -13,8 +13,7 @@ const env = await load();
     //    executablePath: "/Applications/Firefox.app/Contents/MacOS/firefox",
     args: ["--window-size=2200,1000"],
   }); // launch browser
-  const page = await browser.newPage(); // open a new page
-
+  const page = (await browser.pages())[0]; //use the already opened tab
   // Set the viewport to a typical desktop resolution
   await page.setViewport({ width: 2200, height: 1000 });
 
@@ -48,7 +47,6 @@ const env = await load();
   await page.waitForFunction(() => {
     return document.querySelector('button[data-provider="google"]') !== null;
   });
-  //, { timeout: 300 } //is it needed?
   await page.click('button[data-provider="google"]');
 
   // Wait for Google login page to load
